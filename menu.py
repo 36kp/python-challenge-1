@@ -138,18 +138,19 @@ while True:
             # Ask user for order or return to the main menu
             menu_selection = input("Enter the Item # to order.:")
             if menu_selection.isdigit():
-                menu_selection_number = int(menu_selection)
+                menu_selection_int = int(menu_selection)
                 # Check if input is in the sub menu on display
-                if menu_selection_number in menu_items.keys():
-                    selected_item = list(menu_items[menu_selection_number].keys())[0]
-                    # Ask user for quantity
-                    quantity = input(f"Enter quantity for {selected_item}. Quantity will default to 1 for invalid entry. : ")
-                    quantity_int = 1
-                    if quantity.isdigit():
-                        quantity_int = int(quantity)
-                    order.append({"Item name": selected_item, 
-                                    "Price": menu_items[menu_selection_number][selected_item], 
-                                    "Quantity": quantity_int})
+                if menu_selection_int in menu_items.keys():
+                    for key, value in menu_items[menu_selection_int].items():
+                        selected_item = key
+                        # Ask user for quantity
+                        quantity = input(f"Enter quantity for {selected_item}. Quantity will default to 1 for invalid entry. : ")
+                        quantity_int = 1
+                        if quantity.isdigit():
+                            quantity_int = int(quantity)
+                        order.append({"Item name": selected_item, 
+                                        "Price": value, 
+                                        "Quantity": quantity_int})
                 else:
                     print(f"{menu_selection} is not a valid input.")
             else :
