@@ -52,6 +52,12 @@ menu = {
 
 menu_dashes = "-" * 42
 
+# Create an empty list that store customer's order in dictionary format
+order = []
+
+# Initialize place order 
+place_order = False
+
 # Launch the store and present a greeting to the customer
 print("Welcome to the variety food truck.")
 
@@ -99,6 +105,8 @@ while True:
 
             # Initialize a menu item counter
             item_counter = 1
+            # Clear menu items to display sub menu
+            menu_items = {}
             # Print out the menu options from the menu_category_name
             for key, value in menu[menu_category_name].items():
                 # Check if the menu item is a dictionary to handle differently
@@ -111,6 +119,8 @@ while True:
                         print(f"{item_counter}      | "
                               + f"{key} - {key2}{item_spaces} | "
                               + f"${value2}")
+                        # Add item to current sub-menu on display
+                        menu_items[item_counter] = {f"{key} - {key2}": value2}
                         # Add 1 to the item_counter
                         item_counter += 1
                 else:
@@ -119,19 +129,82 @@ while True:
                     item_spaces = " " * num_item_spaces
                     print(f"{item_counter}      | "
                           + f"{key}{item_spaces} | ${value}")
+                    # Add item to current sub-menu on display
+                    menu_items[item_counter] = {key: value}
                     # Add 1 to the item_counter
                     item_counter += 1
             
             print(menu_dashes)
-            input("Press enter to return to the main menu.")
-
+            # Ask user for order or return to the main menu
+            menu_selection = input("Enter the Item # to order.:")
+            if menu_selection.isdigit():
+                menu_selection_number = int(menu_selection)
+                # Check if input is in the sub menu on display
+                if menu_selection_number in menu_items.keys():
+                    selected_item = list(menu_items[menu_selection_number].keys())[0]
+                    # Ask user for quantity
+                    quantity = input(f"Enter quantity for {selected_item}. Quantity will default to 1 for invalid entry. : ")
+                    quantity_int = 1
+                    if quantity.isdigit():
+                        quantity_int = int(quantity)
+                    order.append({"Item name": selected_item, 
+                                    "Price": menu_items[menu_selection_number][selected_item], 
+                                    "Quantity": quantity_int})
+                else:
+                    print(f"{menu_selection} is not a valid input.")
+            else :
+                print(f"{menu_selection} is not a valid input.")
         else:
             # Tell the customer they didn't select a menu option
             print(f"{menu_category} was not a menu option.")
     else:
         # Tell the customer they didn't select a number
         print("You didn't select a number.")
-
-# Create an empty list that store customer's order in dictionary format
-order = []
+    
+    # Ask user if they would like to continue ordering
+    while True:
+        keep_ordering = input("Would you like to keep ordering? Select (y)es or (n)o. :")
+        match keep_ordering.lower():
+            case 'y':
+                place_order = True
+                break
+            case 'n':
+                place_order = False
+                print("Thank you for your order")
+                break
+            case _:
+                print("Invalid input")
+    
+    # Check if customer has finished placing order
+    if place_order == False:
+        # print receipt
+        receipt_dashes = "-" * 45
+        print(receipt_dashes)
+        print("Item name                 | Price  | Quantity")
+        print("--------------------------|--------|---------")
+        for item in order:
+            # Extract Item name, Price and Quantity from Order list
+            item_name = item['Item name']
+            price = f"${item['Price']:,.2f}"
+            quantity = f"{item['Quantity']}"
+            # Calculate and store extra spaces for each attribute
+            item_name_spaces = " " * (26 - len(item_name))
+            price_spaces = " " * (6 - len(price))
+            quantity_spaces = " " * (9 - len(quantity))
+            # Print order item
+            print(f"{item_name}{item_name_spaces}|" + 
+                  f" {price}{price_spaces} |" + 
+                  f" {quantity}{quantity_spaces}")
+        print(receipt_dashes)
+        # Calculate total price for the order
+        total_price = sum([item['Price'] * item['Quantity'] for item in order])
+        # Print total price for the order
+        print(f"Your total price for the order is ${total_price:,.2f}")
+        print(receipt_dashes)
+        # clear order for next customer. This is only if we do not want the 
+        # program to start over for new customer
+        order = []
+        # Complete order and exit. Remove this break to keep program running
+        # for multiple customers
+        break 
 
