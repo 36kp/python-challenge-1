@@ -43,3 +43,11 @@ Follow instructions below to run this program
 `cd \YOUR_PATH\python-challenge-1`
 - Execute the program
 `python menu.py`
+- Follow on-screen instructions :-)
+
+> NOTE: This program is designed to exit after one order. However, it can be configured in code to work for multiple orders in a loop by removing/commenting out following lines:
+```
+        # Complete order and exit. Remove this break to keep program running
+        # for multiple customers
+        break
+```

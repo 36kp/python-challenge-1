@@ -167,10 +167,10 @@ while True:
         keep_ordering = input("Would you like to keep ordering? Select (y)es or (n)o. :")
         match keep_ordering.lower():
             case 'y':
-                place_order = True
+                place_order = True # Customer wants to order more items
                 break
             case 'n':
-                place_order = False
+                place_order = False # Customer wants to finalize order
                 print("Thank you for your order")
                 break
             case _:
