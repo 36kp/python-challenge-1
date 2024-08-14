@@ -10,11 +10,11 @@ This program puts the topics discussed in **Programming for AI : Part 1** into a
     1. Dictionary
     2. List
 2. Loops
-    1. For loop
-    2. While loop
+    1. `for` loop
+    2. `while` loop
 3. Conditional statements
-    1. If conditions
-    2. Match case conditions
+    1. `if` conditions
+    2. `match`-`case` conditions
 4. Data manipulation
     1. String manipulations
     2. Type conversions
