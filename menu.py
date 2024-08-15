@@ -191,11 +191,11 @@ while True:
             # Calculate and store extra spaces for each attribute
             item_name_spaces = " " * (26 - len(item_name))
             price_spaces = " " * (6 - len(price))
-            quantity_spaces = " " * (9 - len(quantity))
+            # quantity_spaces = " " * (9 - len(quantity)) # We really do not need this unless we want numbers to be right aligned
             # Print order item
             print(f"{item_name}{item_name_spaces}|" + 
-                  f" {price}{price_spaces} |" + 
-                  f" {quantity}{quantity_spaces}")
+                  f" {price}{price_spaces} |" + # Just move {price_spaces} before {price} to make it right aligned
+                  f" {quantity}") # Uncomment quantity_spaces and add it before {quantity} to make it right aligned
         print(receipt_dashes)
         # Calculate total price for the order
         total_price = sum([item['Price'] * item['Quantity'] for item in order])
