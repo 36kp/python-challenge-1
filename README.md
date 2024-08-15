@@ -28,7 +28,7 @@ This program puts the topics discussed in **Programming for AI : Part 1** into a
 
 ## How to run this program
 Follow instructions below to run this program
-> NOTEL: Following setup and commands are tested in macOS Sonoma 14.5 only
+> NOTE: Following setup and commands are tested in macOS Sonoma 14.5 only
 
 ### Pre-requisites
 - Dev environment setup using [Anaconda](https://www.anaconda.com/download).
