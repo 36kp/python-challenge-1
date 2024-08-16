@@ -56,14 +56,14 @@ menu_dashes = "-" * 42
 order = []
 
 # Initialize place order 
-place_order = False
+place_order = True
 
 # Launch the store and present a greeting to the customer
 print("Welcome to the variety food truck.")
 
 # Customers may want to view different sections of the menu, so let's create a 
 # continuous loop
-while True:
+while place_order:
     # Ask the customer which menu category they want to view
     print("Which menu would you like to view? ")
 
@@ -175,37 +175,27 @@ while True:
                 break
             case _:
                 print("Invalid input")
-    
-    # Check if customer has finished placing order
-    if place_order == False:
-        # print receipt
-        receipt_dashes = "-" * 45
-        print(receipt_dashes)
-        print("Item name                 | Price  | Quantity")
-        print("--------------------------|--------|---------")
-        for item in order:
-            # Extract Item name, Price and Quantity from Order list
-            item_name = item['Item name']
-            price = f"${item['Price']:,.2f}"
-            quantity = f"{item['Quantity']}"
-            # Calculate and store extra spaces for each attribute
-            item_name_spaces = " " * (26 - len(item_name))
-            price_spaces = " " * (6 - len(price))
-            # quantity_spaces = " " * (9 - len(quantity)) # We really do not need this unless we want numbers to be right aligned
-            # Print order item
-            print(f"{item_name}{item_name_spaces}|" + 
-                  f" {price}{price_spaces} |" + # Just move {price_spaces} before {price} to make it right aligned
-                  f" {quantity}") # Uncomment quantity_spaces and add it before {quantity} to make it right aligned
-        print(receipt_dashes)
-        # Calculate total price for the order
-        total_price = sum([item['Price'] * item['Quantity'] for item in order])
-        # Print total price for the order
-        print(f"Your total price for the order is ${total_price:,.2f}")
-        print(receipt_dashes)
-        # clear order for next customer. This is only if we do not want the 
-        # program to start over for new customer
-        order = []
-        # Complete order and exit. Remove this break to keep program running
-        # for multiple customers
-        break 
-
+                
+# print receipt
+receipt_dashes = "-" * 45
+print(receipt_dashes)
+print("Item name                 | Price  | Quantity")
+print("--------------------------|--------|---------")
+for item in order:
+    # Extract Item name, Price and Quantity from Order list
+    item_name = item['Item name']
+    price = f"${item['Price']:,.2f}"
+    quantity = f"{item['Quantity']}"
+    # Calculate and store extra spaces for each attribute
+    item_name_spaces = " " * (26 - len(item_name))
+    price_spaces = " " * (6 - len(price))
+    # Print order item
+    print(f"{item_name}{item_name_spaces}|" + 
+            f" {price}{price_spaces} |" + 
+            f" {quantity}")
+print(receipt_dashes)
+# Calculate total price for the order
+total_price = sum([item['Price'] * item['Quantity'] for item in order])
+# Print total price for the order
+print(f"Your total price for the order is ${total_price:,.2f}")
+print(receipt_dashes)
